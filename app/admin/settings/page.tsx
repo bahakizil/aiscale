@@ -27,6 +27,12 @@ interface Settings {
   imageCacheTime?: number;
   enableImageOptimization?: boolean;
 
+  // Stripe Payment
+  stripeSecretKey?: string;
+  stripePublishableKey?: string;
+  stripePriceId?: string;
+  stripeWebhookSecret?: string;
+
   // GoHighLevel
   goHighLevelApiKey?: string;
 
@@ -472,31 +478,106 @@ export default function SettingsPage() {
                   Gelişmiş Ayarlar
                 </h2>
 
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={settings.enableImageOptimization || false}
-                    onChange={e => updateSetting('enableImageOptimization', e.target.checked)}
-                    className="w-4 h-4 text-blue-600 rounded"
-                  />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Görsel Optimizasyonu Aktif (AVIF, WebP)
-                  </span>
+                {/* Stripe Payment Section */}
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                    💳 Stripe Payment Settings
+                  </h3>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Stripe Secret Key
+                    </label>
+                    <input
+                      type="password"
+                      value={settings.stripeSecretKey || ''}
+                      onChange={e => updateSetting('stripeSecretKey', e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      placeholder="sk_live_..."
+                    />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      Stripe Dashboard'dan alın (stripe.com/dashboard)
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Stripe Publishable Key
+                    </label>
+                    <input
+                      type="text"
+                      value={settings.stripePublishableKey || ''}
+                      onChange={e => updateSetting('stripePublishableKey', e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      placeholder="pk_live_..."
+                    />
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Stripe Price ID (Subscription)
+                    </label>
+                    <input
+                      type="text"
+                      value={settings.stripePriceId || ''}
+                      onChange={e => updateSetting('stripePriceId', e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      placeholder="price_..."
+                    />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      Ürün fiyat ID'si (Products → Pricing'den alın)
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Stripe Webhook Secret (Opsiyonel)
+                    </label>
+                    <input
+                      type="password"
+                      value={settings.stripeWebhookSecret || ''}
+                      onChange={e => updateSetting('stripeWebhookSecret', e.target.value)}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      placeholder="whsec_..."
+                    />
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      Webhook events için (isteğe bağlı)
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Görsel Cache Süresi (saniye)
-                  </label>
-                  <input
-                    type="number"
-                    value={settings.imageCacheTime || 31536000}
-                    onChange={e => updateSetting('imageCacheTime', parseInt(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                  />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    Varsayılan: 31536000 (1 yıl)
-                  </p>
+                {/* Performance Section */}
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                    ⚡ Performance Settings
+                  </h3>
+
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={settings.enableImageOptimization || false}
+                      onChange={e => updateSetting('enableImageOptimization', e.target.checked)}
+                      className="w-4 h-4 text-blue-600 rounded"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      Görsel Optimizasyonu Aktif (AVIF, WebP)
+                    </span>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Görsel Cache Süresi (saniye)
+                    </label>
+                    <input
+                      type="number"
+                      value={settings.imageCacheTime || 31536000}
+                      onChange={e => updateSetting('imageCacheTime', parseInt(e.target.value))}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    />
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                      Varsayılan: 31536000 (1 yıl)
+                    </p>
+                  </div>
                 </div>
 
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">

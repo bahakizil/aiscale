@@ -32,6 +32,12 @@ export interface SiteSettings {
   imageCacheTime?: number;
   enableImageOptimization?: boolean;
 
+  // Stripe Payment
+  stripeSecretKey?: string;
+  stripePublishableKey?: string;
+  stripePriceId?: string;
+  stripeWebhookSecret?: string;
+
   // GoHighLevel
   goHighLevelApiKey?: string;
 
