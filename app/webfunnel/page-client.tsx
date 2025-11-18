@@ -30,19 +30,25 @@ export default function WebFunnelLandingClient({ initialContent }: { initialCont
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      // Debug: Log ALL messages
+      console.log('🔔 Received postMessage:', event.data);
+
       // GoHighLevel form submission
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
-        console.log('GoHighLevel form submitted');
+        console.log('✅ GoHighLevel form submitted - redirecting...');
         window.location.href = '/webfunnel/checkout';
+        return;
       }
 
       // LeadConnector (GoHighLevel) iframe messages
       if (event.data && typeof event.data === 'string') {
         try {
           const data = JSON.parse(event.data);
+          console.log('📦 Parsed JSON data:', data);
           if (data.action === 'form_submitted' || data.type === 'form_submitted') {
-            console.log('LeadConnector form submitted');
+            console.log('✅ LeadConnector form submitted - redirecting...');
             window.location.href = '/webfunnel/checkout';
+            return;
           }
         } catch (e) {
           // Not JSON, ignore
@@ -51,8 +57,21 @@ export default function WebFunnelLandingClient({ initialContent }: { initialCont
 
       // Generic form success messages
       if (event.data === 'form_submitted' || event.data.status === 'success') {
-        console.log('Form submitted successfully');
+        console.log('✅ Form submitted successfully - redirecting...');
         window.location.href = '/webfunnel/checkout';
+        return;
+      }
+
+      // Check for any object with success indicators
+      if (typeof event.data === 'object' && event.data !== null) {
+        if (event.data.type === 'form-submit' ||
+            event.data.event === 'form-submit' ||
+            event.data.status === 'success' ||
+            event.data.success === true) {
+          console.log('✅ Form success detected - redirecting...');
+          window.location.href = '/webfunnel/checkout';
+          return;
+        }
       }
     };
 
