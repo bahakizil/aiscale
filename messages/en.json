@@ -1,0 +1,98 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "actions": "Actions",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "faq": "FAQ"
+  },
+  "webfunnel": {
+    "title": "Web Funnel",
+    "subtitle": "Conversion-focused sales funnel",
+    "cta": "Get Started Now",
+    "register": "Save Your Seat",
+    "countdown": {
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    }
+  },
+  "aiConsulting": {
+    "title": "AI Consulting",
+    "subtitle": "Transform your business with AI",
+    "cta": "Get Free Consultation"
+  },
+  "webCircle": {
+    "title": "Growth Hackers",
+    "subtitle": "Learn money-making skills in the modern world",
+    "cta": "Start Now",
+    "programs": "Programs",
+    "community": "Community",
+    "pricing": "Pricing"
+  },
+  "admin": {
+    "dashboard": "Admin Panel",
+    "content": "Content Management",
+    "media": "Media Library",
+    "settings": "Settings",
+    "analytics": "Analytics",
+    "users": "Users",
+    "logout": "Logout",
+    "save": "Save",
+    "saved": "Saved",
+    "saving": "Saving...",
+    "unsavedChanges": "Unsaved changes",
+    "autoSave": "Auto Save",
+    "preview": "Preview",
+    "liveView": "Live View",
+    "reset": "Reset",
+    "undo": "Undo",
+    "redo": "Redo",
+    "uploadImage": "Upload Image",
+    "deleteImage": "Delete Image",
+    "youtubeUrl": "YouTube Video URL",
+    "language": "Language"
+  },
+  "seo": {
+    "defaultTitle": "AI Acquisition Method",
+    "defaultDescription": "Grow your business with artificial intelligence",
+    "keywords": "ai, artificial intelligence, consulting, training, growth hacking"
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "mainNavigation": "Main navigation",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "closeModal": "Close modal",
+    "loading": "Loading",
+    "requiredField": "Required field",
+    "searchPlaceholder": "Type to search...",
+    "menuExpanded": "Menu expanded",
+    "menuCollapsed": "Menu collapsed",
+    "pageNavigation": "Page navigation",
+    "footerNavigation": "Footer navigation",
+    "languageSwitcher": "Change language",
+    "socialMedia": "Social media links",
+    "externalLink": "External link (opens in new tab)"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat",
+    "back": "Geri",
+    "next": "İleri",
+    "submit": "Gönder",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "sort": "Sırala",
+    "actions": "İşlemler",
+    "settings": "Ayarlar",
+    "profile": "Profil",
+    "logout": "Çıkış Yap",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "services": "Hizmetler",
+    "portfolio": "Portfolyo",
+    "blog": "Blog",
+    "faq": "Sık Sorulan Sorular"
+  },
+  "webfunnel": {
+    "title": "Web Funnel",
+    "subtitle": "Dönüşüm odaklı satış hunisi",
+    "cta": "Hemen Başla",
+    "register": "Yerinizi Ayırtın",
+    "countdown": {
+      "hours": "Saat",
+      "minutes": "Dakika",
+      "seconds": "Saniye"
+    }
+  },
+  "aiConsulting": {
+    "title": "AI Danışmanlık",
+    "subtitle": "Yapay zeka ile işinizi dönüştürün",
+    "cta": "Ücretsiz Danışmanlık Al"
+  },
+  "webCircle": {
+    "title": "Growth Hackers",
+    "subtitle": "Modern dünyada para kazandıran becerileri öğren",
+    "cta": "Hemen Başla",
+    "programs": "Programlar",
+    "community": "Topluluk",
+    "pricing": "Fiyatlandırma"
+  },
+  "admin": {
+    "dashboard": "Yönetim Paneli",
+    "content": "İçerik Yönetimi",
+    "media": "Medya Kütüphanesi",
+    "settings": "Ayarlar",
+    "analytics": "İstatistikler",
+    "users": "Kullanıcılar",
+    "logout": "Çıkış Yap",
+    "save": "Kaydet",
+    "saved": "Kaydedildi",
+    "saving": "Kaydediliyor...",
+    "unsavedChanges": "Kaydedilmemiş değişiklikler",
+    "autoSave": "Otomatik Kaydet",
+    "preview": "Önizleme",
+    "liveView": "Canlı Görünüm",
+    "reset": "Sıfırla",
+    "undo": "Geri Al",
+    "redo": "İleri Al",
+    "uploadImage": "Görsel Yükle",
+    "deleteImage": "Görseli Sil",
+    "youtubeUrl": "YouTube Video URL",
+    "language": "Dil"
+  },
+  "seo": {
+    "defaultTitle": "AI Acquisition Method",
+    "defaultDescription": "Yapay zeka ile işletmenizi büyütün",
+    "keywords": "ai, yapay zeka, danışmanlık, eğitim, growth hacking"
+  },
+  "accessibility": {
+    "skipToContent": "Ana içeriğe git",
+    "mainNavigation": "Ana navigasyon",
+    "closeMenu": "Menüyü kapat",
+    "openMenu": "Menüyü aç",
+    "closeModal": "Pencereyi kapat",
+    "loading": "Yükleniyor",
+    "requiredField": "Zorunlu alan",
+    "searchPlaceholder": "Aramak için yazın...",
+    "menuExpanded": "Menü açık",
+    "menuCollapsed": "Menü kapalı",
+    "pageNavigation": "Sayfa navigasyonu",
+    "footerNavigation": "Alt navigasyon",
+    "languageSwitcher": "Dil değiştir",
+    "socialMedia": "Sosyal medya bağlantıları",
+    "externalLink": "Harici bağlantı (yeni sekmede açılır)"
+  }
+}
