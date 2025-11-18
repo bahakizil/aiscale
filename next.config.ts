@@ -31,9 +31,10 @@ const nextConfig: NextConfig = {
     ],
     // Enable faster tree-shaking
     optimizeCss: true,
-    // Enable Server Components optimizations
-    serverComponentsExternalPackages: ['@prisma/client'],
   },
+
+  // Server external packages (moved from experimental in Next.js 15+)
+  serverExternalPackages: ['@prisma/client'],
 
   // Turbopack configuration (Next.js 16+)
   // Empty config to suppress webpack warning

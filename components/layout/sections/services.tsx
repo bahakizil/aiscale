@@ -12,7 +12,7 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 interface ServiceProps {
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: React.ReactElement;
 }
 const serviceList: ServiceProps[] = [
   {

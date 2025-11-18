@@ -35,7 +35,7 @@ interface TiltCardProps {
 
 export default function TiltCard({ children, className }: TiltCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const resetRef = useRef<NodeJS.Timeout>();
+  const resetRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const update = useCallback(({ x, y }: { x: number; y: number }) => {
     if (!containerRef.current) {

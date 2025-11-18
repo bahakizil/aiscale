@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
-import { Container } from '@/components/ui/Container'
-import { Button } from '@/components/ui/Button'
+import { Container } from '@/components/ui/container'
+import { Button } from '@/components/ui/button'
 
 export default function SuccessPage() {
   return (
@@ -59,7 +59,7 @@ export default function SuccessPage() {
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button variant="primary" size="lg" asChild>
+            <Button variant="default" size="lg" asChild>
               <a href="mailto:support@gelirhub.com">
                 Destek İçin İletişime Geç
                 <ArrowRight className="ml-2 h-5 w-5" />

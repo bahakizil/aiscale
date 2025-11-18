@@ -86,14 +86,14 @@ export async function showNotification(options: NotificationOptions): Promise<vo
     body: options.body,
     icon: options.icon || '/icon-192.png',
     badge: options.badge || '/icon-192.png',
-    image: options.image,
+    ...(options.image && { image: options.image }),
     tag: options.tag || 'default',
     requireInteraction: options.requireInteraction || false,
     silent: options.silent || false,
     data: options.data,
     actions: options.actions,
     vibrate: [200, 100, 200],
-  });
+  } as unknown as NotificationOptions);
 }
 
 // Subscribe to push notifications (requires VAPID keys)
@@ -114,7 +114,7 @@ export async function subscribeToPushNotifications(
     if (vapidPublicKey) {
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
+        applicationServerKey: urlBase64ToUint8Array(vapidPublicKey) as BufferSource,
       });
     } else {
       subscription = await registration.pushManager.subscribe({
