@@ -83,15 +83,27 @@ export default function SettingsPage() {
         body: JSON.stringify(settings),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setMessage('✅ Ayarlar kaydedildi!');
         setTimeout(() => setMessage(''), 3000);
       } else {
-        setMessage('❌ Kaydetme hatası');
+        // Show detailed error message
+        const errorMsg = data.error || 'Kaydetme hatası';
+        setMessage(`❌ ${errorMsg}`);
+
+        // If it's a Vercel production error, show instructions
+        if (errorMsg.includes('Vercel')) {
+          setMessage(
+            '⚠️ Vercel production ortamında ayarlar dosyaya kaydedilemez. ' +
+            'Lütfen Vercel Dashboard → Environment Variables bölümünden ayarları güncelleyin.'
+          );
+        }
       }
     } catch (error) {
       console.error('Error saving settings:', error);
-      setMessage('❌ Kaydetme hatası');
+      setMessage('❌ Sunucu bağlantı hatası');
     } finally {
       setSaving(false);
     }

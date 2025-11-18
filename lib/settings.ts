@@ -94,6 +94,14 @@ export async function getSetting<K extends keyof SiteSettings>(
 export async function updateSettings(
   newSettings: Partial<SiteSettings>
 ): Promise<SiteSettings> {
+  // In production (Vercel), filesystem is read-only
+  // We need to use a different approach
+  if (process.env.VERCEL) {
+    throw new Error(
+      'Settings cannot be updated in production. Please use Vercel Environment Variables or Vercel KV.'
+    );
+  }
+
   await ensureDataDir();
 
   const currentSettings = await getSettings();

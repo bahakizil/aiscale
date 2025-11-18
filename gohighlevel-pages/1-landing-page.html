@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Acquisition Method - Canlı Webinar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Fade-in animation for page load */
+        body {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .banner {
+            background: linear-gradient(90deg, #eab308, #f59e0b);
+            color: #000;
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 16px;
+        }
+
+        .headline {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .headline h1 {
+            font-size: clamp(28px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .headline .amount {
+            color: #fbbf24;
+            font-size: clamp(36px, 6vw, 64px);
+        }
+
+        .headline .subtitle {
+            color: #ef4444;
+            font-size: clamp(16px, 2vw, 20px);
+            margin-top: 24px;
+            line-height: 1.6;
+        }
+
+        .event-date {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            display: inline-block;
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        .event-date p {
+            color: #fbbf24;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .countdown-item {
+            background: #fff;
+            color: #000;
+            padding: 16px;
+            border-radius: 8px;
+            min-width: 80px;
+            text-align: center;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(251, 191, 36, 0.5);
+            }
+        }
+
+        .countdown-number {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 24px 48px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.3);
+            display: block;
+            margin: 48px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(20, 184, 166, 0.5);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .social-proof {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 32px 0;
+        }
+
+        .stars {
+            display: flex;
+            gap: 4px;
+            color: #fbbf24;
+        }
+
+        .avatars {
+            display: flex;
+            gap: 8px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #374151;
+        }
+
+        .content-section {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 64px 0;
+            border: 1px solid #374151;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 12px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #374151;
+        }
+
+        .image-placeholder .icon {
+            font-size: 72px;
+            margin-bottom: 24px;
+        }
+
+        .image-placeholder p {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .feature-item:hover {
+            background: rgba(31, 41, 55, 0.5);
+        }
+
+        .checkmark {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+        }
+
+        .feature-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e5e7eb;
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 64px 0;
+            border: 1px solid #374151;
+        }
+
+        .results-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .results-title h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #fbbf24, #14b8a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .divider {
+            width: 96px;
+            height: 4px;
+            background: linear-gradient(90deg, #fbbf24, #14b8a6);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #000, #111827);
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            transition: all 0.3s;
+        }
+
+        .result-card:hover {
+            border-color: rgba(234, 179, 8, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .result-amount {
+            font-size: clamp(40px, 5vw, 56px);
+            font-weight: 700;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .result-description {
+            font-size: 16px;
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .disclaimer {
+            background: rgba(31, 41, 55, 0.5);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #374151;
+        }
+
+        .disclaimer p {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #111827;
+            padding: 32px 16px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            backdrop-filter: blur(0px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal.active {
+            display: flex;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: #1f2937;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            border: 1px solid #374151;
+            animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(50px) scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #9ca3af;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 24px;
+            border-top: 1px solid #374151;
+        }
+
+        .modal-footer p {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner -->
+    <div class="banner">
+        ⏰ ETKİNLİK BAŞLANGICI: Pazar, 18 Kasım 2025 saat 19:00 (Türkiye Saati) ⏰
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Headline -->
+        <div class="headline">
+            <h1>
+                <span>Nasıl</span><br>
+                <span class="amount">$100,000+</span><br>
+                <span>(ortalama)</span><br>
+                <span>Kazandık?</span>
+            </h1>
+            <p class="subtitle">
+                🔴 CANLI ETKİNLİK: İşletmelere AI Çözümleri Satarak İlk 90 Günde 6 Haneli Gelir Elde Etme Sistemi
+            </p>
+            <div class="event-date">
+                <p>⏰ Etkinlik Başlangıcı: Pazar, 18 Kasım 2025 saat 19:00 ⏰</p>
+            </div>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Saat</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Dakika</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Saniye</div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="cta-button" onclick="openModal()">
+            EVET! ŞİMDİ YERİMİ AYIRT
+        </button>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <div class="stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="avatars">
+                <div class="avatar"></div>
+                <div class="avatar"></div>
+                <div class="avatar"></div>
+                <div class="avatar"></div>
+                <div class="avatar"></div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="content-section">
+            <div class="grid">
+                <div class="image-placeholder">
+                    <div style="text-align: center;">
+                        <div class="icon">👨‍💼</div>
+                        <p>Founder of The AI Acquisition Method</p>
+                    </div>
+                </div>
+                <div>
+                    <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 32px;">
+                        Bu Canlı Etkinlikte Neler Öğreneceksiniz?
+                    </h2>
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <p class="feature-text">İşletmelerin AI için ödeme yapmaya hazır oldukları TAM çözümler</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <p class="feature-text">Hiçbir teknik bilgi olmadan AI ajansı nasıl kurulur</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <p class="feature-text">İlk 5 müşterinizi ilk 30 günde nasıl imzalarsınız</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <p class="feature-text">AI çözümlerini $5K-$50K arasında nasıl fiyatlandırırsınız</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="checkmark">✓</div>
+                            <p class="feature-text">Tekrar eden gelir için AI hizmetlerini nasıl paketlersiniz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second CTA -->
+        <button class="cta-button" onclick="openModal()">
+            EVET! ŞİMDİ YERİMİ AYIRT
+        </button>
+
+        <!-- Results Section -->
+        <div class="results-section">
+            <div class="results-title">
+                <h2>
+                    <span>Kendinden Emin</span><br>
+                    <span class="gradient-text">Sonuçlar Konuşur</span>
+                </h2>
+                <div class="divider"></div>
+            </div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-amount">$127K</div>
+                    <p class="result-description">İlk 90 günde tek bir AI chatbot çözümünden elde edilen gelir</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$89K</div>
+                    <p class="result-description">Bir müşterinin AI otomasyon sisteminden elde ettiği aylık tasarruf</p>
+                </div>
+                <div class="result-card">
+                    <div class="result-amount">$213K</div>
+                    <p class="result-description">Bir B2B AI çözümünden ilk 6 ayda elde edilen toplam gelir</p>
+                </div>
+            </div>
+            <div class="disclaimer">
+                <p>
+                    SORUMLULUK REDDİ: Yukarıda belirtilen satış rakamları kişisel satış rakamlarımız ve bazı durumlarda önceki veya mevcut müşterilerin satış rakamlarıdır.
+                    Lütfen bu sonuçların tipik olmadığını anlayın. Bunları kopyalayacağınızı ima etmiyoruz. Herhangi bir "nasıl yapılır" bilgisi satın alan ortalama kişi çok az veya hiç sonuç almaz.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>
+            Bu site Facebook web sitesinin veya Facebook Inc.'in bir parçası değildir. Ayrıca, bu site Facebook tarafından hiçbir şekilde onaylanmamıştır.
+            FACEBOOK, FACEBOOK, Inc.'in ticari markasıdır.
+        </p>
+        <div class="footer-links">
+            <a href="#">Gizlilik Politikası</a>
+            <a href="#">Şartlar ve Koşullar</a>
+            <a href="#">Sorumluluk Reddi</a>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-body">
+                <!-- GoHighLevel Form Embed -->
+                <iframe
+                    src="https://api.leadconnectorhq.com/widget/form/84Is6fx7guuS4EeNPxf2"
+                    style="width: 100%; height: 500px; border: none; border-radius: 8px;"
+                    id="ghl-form"
+                ></iframe>
+            </div>
+            <div class="modal-footer">
+                <p>Formu doldurdunuz mu?</p>
+                <button class="continue-btn" onclick="goToCheckout()">
+                    Devam Et →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Analytics & Tracking Helper
+        function trackEvent(eventName, eventData = {}) {
+            console.log('📊 Event:', eventName, eventData);
+            // Add your analytics tracking here (Google Analytics, Facebook Pixel, etc.)
+            // Example: gtag('event', eventName, eventData);
+            // Example: fbq('track', eventName, eventData);
+        }
+
+        // Page Load Tracking
+        window.addEventListener('load', function() {
+            trackEvent('PageView', {
+                page: 'landing',
+                timestamp: new Date().toISOString()
+            });
+        });
+
+        // Countdown Timer with Animation
+        const targetDate = new Date('2025-11-18T19:00:00+03:00');
+        let previousValues = { hours: '00', minutes: '00', seconds: '00' };
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff > 0) {
+                const hours = Math.floor(diff / (1000 * 60 * 60) % 24);
+                const minutes = Math.floor(diff / (1000 * 60) % 60);
+                const seconds = Math.floor(diff / 1000 % 60);
+
+                const hoursStr = String(hours).padStart(2, '0');
+                const minutesStr = String(minutes).padStart(2, '0');
+                const secondsStr = String(seconds).padStart(2, '0');
+
+                // Animate number changes
+                updateCountdownElement('hours', hoursStr, previousValues.hours);
+                updateCountdownElement('minutes', minutesStr, previousValues.minutes);
+                updateCountdownElement('seconds', secondsStr, previousValues.seconds);
+
+                previousValues = { hours: hoursStr, minutes: minutesStr, seconds: secondsStr };
+            } else {
+                // Event has started
+                document.getElementById('countdown').innerHTML = '<p style="font-size: 24px; font-weight: 700; color: #fbbf24;">🔴 ETKİNLİK BAŞLADI!</p>';
+            }
+        }
+
+        function updateCountdownElement(id, newValue, oldValue) {
+            const element = document.getElementById(id);
+            if (newValue !== oldValue && element) {
+                element.style.transform = 'scale(1.1)';
+                element.style.color = '#fbbf24';
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                    element.style.color = '#000';
+                }, 200);
+            }
+            element.textContent = newValue;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Modal Functions
+        function openModal() {
+            const modal = document.getElementById('registrationModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            trackEvent('ModalOpened', {
+                modal: 'registration',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('registrationModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+
+            trackEvent('ModalClosed', {
+                modal: 'registration',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function goToCheckout() {
+            // Save timestamp to localStorage
+            localStorage.setItem('webinar_registration_time', new Date().toISOString());
+
+            trackEvent('FormCompleted', {
+                page: 'landing',
+                next: 'checkout',
+                timestamp: new Date().toISOString()
+            });
+
+            // Redirect to checkout page
+            window.location.href = 'CHECKOUT-PAGE-URL-HERE';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('registrationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Listen for form submission (GoHighLevel)
+        window.addEventListener('message', function(event) {
+            console.log('Message received:', event.data);
+
+            if (event.data && (
+                event.data.type === 'form_submitted' ||
+                event.data.status === 'success' ||
+                (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted')
+            )) {
+                setTimeout(function() {
+                    goToCheckout();
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

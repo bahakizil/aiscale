@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Funnel - GoHighLevel Embed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #webfunnel-iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+
+        /* Loading overlay */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #14b8a6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Web Funnel iFrame -->
+    <iframe
+        id="webfunnel-iframe"
+        src="https://unified-website-c5ft4rmnr-bahas-projects-554ef70d.vercel.app/webfunnel"
+        frameborder="0"
+        allowfullscreen
+        allow="payment; geolocation"
+        onload="hideLoading()"
+    ></iframe>
+
+    <script>
+        // Hide loading spinner when iframe loads
+        function hideLoading() {
+            const loading = document.getElementById('loading');
+            loading.classList.add('hidden');
+        }
+
+        // Handle iframe navigation messages
+        window.addEventListener('message', (event) => {
+            console.log('iFrame message:', event.data);
+
+            // If iframe sends navigation request, update src
+            if (event.data && event.data.type === 'navigate') {
+                const iframe = document.getElementById('webfunnel-iframe');
+                iframe.src = event.data.url;
+            }
+        });
+
+        // Prevent scrolling in parent when iframe is loaded
+        document.body.style.overflow = 'hidden';
+    </script>
+</body>
+</html>

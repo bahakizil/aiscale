@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme - Web Funnel Webinarı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid #374151;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        /* Main Grid */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Product Info Card */
+        .product-card {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid #374151;
+        }
+
+        .product-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #14b8a6;
+        }
+
+        .price-section {
+            background: rgba(20, 184, 166, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #14b8a6;
+        }
+
+        .old-price {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+            margin-bottom: 10px;
+        }
+
+        .new-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #14b8a6;
+            margin-bottom: 10px;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: #14b8a6;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .guarantee-badge {
+            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .guarantee-badge h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .guarantee-badge p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Payment Form Card */
+        .payment-card {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid #374151;
+        }
+
+        .payment-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #14b8a6;
+        }
+
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 1px solid #374151;
+            background: #111827;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #14b8a6;
+            background: #1f2937;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input.error {
+            border-color: #ef4444;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .form-group .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group input.error + .error-message {
+            display: block;
+        }
+
+        .form-group input::placeholder {
+            color: #64748b;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 18px 32px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(20, 184, 166, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #111827;
+            color: #cbd5e1;
+            border: 1px solid #374151;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: #1f2937;
+            color: #fff;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(20, 184, 166, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .security-note:before {
+            content: "🔒";
+            font-size: 1.5rem;
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #14b8a6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border-radius: 15px;
+            border: 1px solid #374151;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .trust-badge-icon {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Özel Webinar Erişimi</h1>
+            <p>Kaydınızı tamamlayın ve dönüşüm sırlarını öğrenin</p>
+        </div>
+
+        <!-- Checkout Grid -->
+        <div class="checkout-grid">
+            <!-- Product Info -->
+            <div class="product-card">
+                <h2>📦 Paket İçeriği</h2>
+
+                <div class="price-section">
+                    <div class="old-price">$497</div>
+                    <div class="new-price">$27</div>
+                    <div class="price-note">Tek seferlik ödeme - Abonelik yok</div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Canlı Webinar Erişimi (18 Kasım, 19:00)</li>
+                    <li>Özel WhatsApp Topluluk Erişimi</li>
+                    <li>AI ile İş Bulma Stratejileri</li>
+                    <li>AI ile Süreç Otomasyonu Teknikleri</li>
+                    <li>Gerçek Vaka Analizleri</li>
+                    <li>Soru-Cevap Oturumu</li>
+                    <li>Bonus: Webinar Kaydı (Sınırsız Erişim)</li>
+                    <li>Bonus: AI Araçlar Kılavuzu</li>
+                </ul>
+
+                <div class="guarantee-badge">
+                    <h3>💯 %100 Memnuniyet Garantisi</h3>
+                    <p>30 gün içinde memnun kalmazsan, paranı iade ediyoruz. Sorusuz.</p>
+                </div>
+            </div>
+
+            <!-- Payment Form -->
+            <div class="payment-card">
+                <h2>💳 Ödeme Bilgileri</h2>
+
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Stripe ödeme sayfasına yönlendiriliyorsunuz...</p>
+                </div>
+
+                <form id="paymentForm" class="payment-form">
+                    <div class="form-group">
+                        <label for="cardName">Kart Üzerindeki İsim</label>
+                        <input type="text" id="cardName" placeholder="Ahmet Yılmaz" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Kart Numarası</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Son Kullanma Tarihi</label>
+                            <input type="text" id="expiry" placeholder="AA/YY" maxlength="5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvc">CVC</label>
+                            <input type="text" id="cvc" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-posta Adresi</label>
+                        <input type="email" id="email" placeholder="ornek@email.com" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        🔒 Güvenli Ödeme Yap - $27
+                    </button>
+
+                    <button type="button" class="btn btn-secondary" onclick="skipOffer()">
+                        Fırsatı Kaçır ve Devam Et
+                    </button>
+
+                    <div class="security-note">
+                        256-bit SSL şifreleme ile güvenli ödeme. Kart bilgileriniz kesinlikle saklanmaz.
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <div class="trust-badge-icon">🔒</div>
+                <div>SSL Güvenli</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">💳</div>
+                <div>Stripe Ödeme</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">↩️</div>
+                <div>30 Gün İade</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">⚡</div>
+                <div>Anında Erişim</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Analytics & Tracking
+        function trackEvent(eventName, eventData = {}) {
+            console.log('📊 Event:', eventName, eventData);
+            // Add your analytics here
+        }
+
+        // Page Load
+        window.addEventListener('load', function() {
+            trackEvent('CheckoutPageView', {
+                referrer: document.referrer,
+                timestamp: new Date().toISOString()
+            });
+
+            // Check if coming from landing page
+            const regTime = localStorage.getItem('webinar_registration_time');
+            if (regTime) {
+                const timeSpent = (new Date() - new Date(regTime)) / 1000;
+                console.log(`⏱️ Time from registration: ${timeSpent.toFixed(0)}s`);
+            }
+        });
+
+        // Card number formatting with validation
+        const cardNumberInput = document.getElementById('cardNumber');
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+
+            // Real-time validation
+            if (value.length > 0 && value.length < 13) {
+                e.target.classList.add('error');
+            } else {
+                e.target.classList.remove('error');
+            }
+        });
+
+        // Expiry date formatting with validation
+        const expiryInput = document.getElementById('expiry');
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+
+            // Validate expiry date
+            if (value.length === 5) {
+                const [month, year] = value.split('/');
+                const expiry = new Date(2000 + parseInt(year), parseInt(month) - 1);
+                const now = new Date();
+
+                if (expiry < now || parseInt(month) > 12 || parseInt(month) === 0) {
+                    e.target.classList.add('error');
+                } else {
+                    e.target.classList.remove('error');
+                }
+            }
+        });
+
+        // CVC validation (numbers only)
+        const cvcInput = document.getElementById('cvc');
+        cvcInput.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+
+            if (e.target.value.length > 0 && e.target.value.length < 3) {
+                e.target.classList.add('error');
+            } else {
+                e.target.classList.remove('error');
+            }
+        });
+
+        // Email validation
+        const emailInput = document.getElementById('email');
+        emailInput.addEventListener('blur', function(e) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(e.target.value)) {
+                e.target.classList.add('error');
+            } else {
+                e.target.classList.remove('error');
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validate all fields first
+            const cardName = document.getElementById('cardName').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            const expiry = document.getElementById('expiry').value;
+            const cvc = document.getElementById('cvc').value;
+            const email = document.getElementById('email').value.trim();
+
+            let hasError = false;
+
+            if (!cardName) {
+                document.getElementById('cardName').classList.add('error');
+                hasError = true;
+            }
+
+            if (cardNumber.length < 13) {
+                document.getElementById('cardNumber').classList.add('error');
+                hasError = true;
+            }
+
+            if (expiry.length !== 5) {
+                document.getElementById('expiry').classList.add('error');
+                hasError = true;
+            }
+
+            if (cvc.length < 3) {
+                document.getElementById('cvc').classList.add('error');
+                hasError = true;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('email').classList.add('error');
+                hasError = true;
+            }
+
+            if (hasError) {
+                alert('Lütfen tüm alanları doğru doldurun.');
+                return;
+            }
+
+            // Track payment attempt
+            trackEvent('PaymentAttempt', {
+                email: email,
+                timestamp: new Date().toISOString()
+            });
+
+            // Show loading state
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('paymentForm').style.display = 'none';
+
+            try {
+                // REPLACE THIS URL with your actual Stripe checkout API endpoint
+                const response = await fetch('YOUR_STRIPE_API_ENDPOINT_HERE', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        // Add other form data as needed
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Payment initialization failed');
+                }
+
+                const data = await response.json();
+
+                // Track successful checkout initiation
+                trackEvent('CheckoutInitiated', {
+                    email: email,
+                    timestamp: new Date().toISOString()
+                });
+
+                // Redirect to Stripe checkout
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error('No checkout URL received');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+
+                trackEvent('PaymentError', {
+                    error: error.message,
+                    timestamp: new Date().toISOString()
+                });
+
+                alert('Ödeme işlemi başlatılamadı. Lütfen tekrar deneyin.');
+
+                // Hide loading, show form again
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('paymentForm').style.display = 'flex';
+            }
+        });
+
+        // Skip offer function
+        function skipOffer() {
+            trackEvent('SkipOfferClicked', {
+                timestamp: new Date().toISOString()
+            });
+
+            if (confirm('Emin misiniz? $470 tasarruf fırsatını kaçıracaksınız.')) {
+                trackEvent('OfferSkipped', {
+                    timestamp: new Date().toISOString()
+                });
+
+                // Save skip timestamp
+                localStorage.setItem('offer_skipped_time', new Date().toISOString());
+
+                // REPLACE THIS URL with your success page URL
+                window.location.href = 'SUCCESS-PAGE-URL-HERE';
+            } else {
+                trackEvent('SkipOfferCancelled', {
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        // Autofill from localStorage (for testing/demo)
+        window.addEventListener('load', function() {
+            const savedEmail = localStorage.getItem('webinar_email');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        });
+    </script>
+</body>
+</html>
