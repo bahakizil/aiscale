@@ -272,11 +272,22 @@ export default function WebFunnelLandingClient({ initialContent }: { initialCont
           >
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold z-10"
             >
               ×
             </button>
             <div className="p-6">
+              {/* Success Message - Shows instead of iframe after form submission */}
+              <div id="form-success-message" className="hidden">
+                <div className="text-center py-8">
+                  <div className="text-6xl mb-4">✅</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Kaydınız Alındı!</h3>
+                  <p className="text-gray-600 mb-6">Şimdi özel teklifimize yönlendiriliyorsunuz...</p>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mx-auto"></div>
+                </div>
+              </div>
+
+              {/* GoHighLevel Form */}
               <iframe
                 src="https://api.leadconnectorhq.com/widget/form/84Is6fx7guuS4EeNPxf2"
                 style={{width: '100%', height: '500px', border: 'none', borderRadius: '3px'}}
@@ -293,7 +304,56 @@ export default function WebFunnelLandingClient({ initialContent }: { initialCont
                 data-layout-iframe-id="inline-84Is6fx7guuS4EeNPxf2"
                 data-form-id="84Is6fx7guuS4EeNPxf2"
                 title="WEBINAR - Copy"
+                onLoad={(e) => {
+                  // Try to detect form submission via iframe URL change
+                  const iframe = e.target as HTMLIFrameElement;
+                  const checkInterval = setInterval(() => {
+                    try {
+                      const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                      if (iframeDoc) {
+                        // Check if success/thank you elements exist
+                        const successElements = iframeDoc.querySelectorAll('[class*="success"], [class*="thank"], [id*="success"], [id*="thank"]');
+                        if (successElements.length > 0) {
+                          console.log('✅ Form success detected via DOM!');
+                          clearInterval(checkInterval);
+                          // Show success message
+                          const successMsg = document.getElementById('form-success-message');
+                          const formIframe = document.getElementById('inline-84Is6fx7guuS4EeNPxf2');
+                          if (successMsg && formIframe) {
+                            formIframe.style.display = 'none';
+                            successMsg.classList.remove('hidden');
+                          }
+                          // Redirect after 2 seconds
+                          setTimeout(() => {
+                            window.location.href = '/webfunnel/checkout';
+                          }, 2000);
+                        }
+                      }
+                    } catch (e) {
+                      // Cross-origin, can't access iframe content
+                    }
+                  }, 500);
+
+                  // Clear interval after 30 seconds to prevent memory leak
+                  setTimeout(() => clearInterval(checkInterval), 30000);
+                }}
               />
+            </div>
+
+            {/* Manual Continue Button (Fallback) */}
+            <div className="px-6 pb-6 border-t border-gray-200 pt-4">
+              <p className="text-xs text-gray-500 text-center mb-3">
+                Formu doldurdunuz mu?
+              </p>
+              <button
+                onClick={() => {
+                  console.log('✅ Manual continue clicked');
+                  window.location.href = '/webfunnel/checkout';
+                }}
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Devam Et →
+              </button>
             </div>
           </div>
         </div>
