@@ -13,10 +13,38 @@ export default function CheckoutPage() {
     cvc: '',
     country: 'Türkiye'
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to success page
+    setLoading(true);
+    setError('');
+
+    try {
+      // Create Stripe checkout session
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Ödeme başlatılamadı');
+      }
+
+      const { url } = await response.json();
+
+      // Redirect to Stripe checkout
+      window.location.href = url;
+    } catch (err: any) {
+      console.error('Checkout error:', err);
+      setError(err.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+      setLoading(false);
+    }
+  };
+
+  const handleSkip = () => {
     window.location.href = '/webfunnel/success';
   };
 
@@ -127,8 +155,8 @@ export default function CheckoutPage() {
             {/* Bottom Link */}
             <div className="text-center py-4">
               <button
-                onClick={() => window.location.href = '/webfunnel/success'}
-                className="text-gray-400 text-sm underline hover:text-gray-300"
+                onClick={handleSkip}
+                className="text-gray-400 text-sm underline hover:text-gray-300 transition-colors"
               >
                 Hayır teşekkürler, ilk ücretli müşteriyi edinmede AI Kısayolunu kaçıracağım.
               </button>
@@ -160,6 +188,12 @@ export default function CheckoutPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-gray-700 text-sm font-medium mb-2">
                     İletişim Bilgileri
@@ -264,9 +298,10 @@ export default function CheckoutPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-md transition-colors"
+                  disabled={loading}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Satın Almayı Tamamla
+                  {loading ? 'Yönlendiriliyor...' : 'Satın Almayı Tamamla'}
                 </button>
 
                 <div className="text-center mt-4">

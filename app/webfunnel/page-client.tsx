@@ -30,7 +30,28 @@ export default function WebFunnelLandingClient({ initialContent }: { initialCont
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      // GoHighLevel form submission
       if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmitted') {
+        console.log('GoHighLevel form submitted');
+        window.location.href = '/webfunnel/checkout';
+      }
+
+      // LeadConnector (GoHighLevel) iframe messages
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.action === 'form_submitted' || data.type === 'form_submitted') {
+            console.log('LeadConnector form submitted');
+            window.location.href = '/webfunnel/checkout';
+          }
+        } catch (e) {
+          // Not JSON, ignore
+        }
+      }
+
+      // Generic form success messages
+      if (event.data === 'form_submitted' || event.data.status === 'success') {
+        console.log('Form submitted successfully');
         window.location.href = '/webfunnel/checkout';
       }
     };
