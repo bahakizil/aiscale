@@ -36,21 +36,21 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-3 sm:p-4">
       <div className="w-full max-w-md">
         {/* Logo/Title */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Admin Panel</h1>
-          <p className="text-gray-400">Web Funnel Management System</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Admin Panel</h1>
+          <p className="text-sm sm:text-base text-gray-400">Web Funnel Management System</p>
         </div>
 
-        {/* Login Card */}
-        <div className="bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-700">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Login Card - Mobile Optimized */}
+        <div className="bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 border border-gray-700">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             {/* Error Message */}
             {error && (
-              <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-4">
-                <p className="text-red-400 text-sm">{error}</p>
+              <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-3 sm:p-4">
+                <p className="text-red-400 text-xs sm:text-sm">{error}</p>
               </div>
             )}
 
@@ -64,9 +64,10 @@ export default function AdminLoginPage() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                 placeholder="admin"
                 required
+                autoComplete="username"
               />
             </div>
 
@@ -80,9 +81,10 @@ export default function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
                 placeholder="••••••••"
                 required
+                autoComplete="current-password"
               />
             </div>
 
@@ -90,14 +92,14 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base active:scale-[0.98] touch-manipulation"
             >
               {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
             </button>
           </form>
 
           {/* Info */}
-          <div className="mt-6 pt-6 border-t border-gray-700">
+          <div className="mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-gray-700">
             <p className="text-xs text-gray-500 text-center">
               Default credentials: admin / admin123
             </p>
@@ -105,10 +107,10 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Back to Home */}
-        <div className="text-center mt-6">
+        <div className="text-center mt-5 sm:mt-6">
           <button
             onClick={() => router.push('/webfunnel')}
-            className="text-gray-400 hover:text-gray-300 text-sm underline"
+            className="text-gray-400 hover:text-gray-300 text-sm underline touch-manipulation active:text-gray-200"
           >
             ← Web Funnel'a Dön
           </button>

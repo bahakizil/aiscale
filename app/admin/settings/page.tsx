@@ -135,79 +135,83 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header */}
-      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+      {/* Header - Mobile Responsive */}
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            {/* Title Section */}
+            <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={() => router.push('/admin/dashboard-v2')}
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm sm:text-base"
               >
                 ← Geri
               </button>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                 ⚙️ Sistem Ayarları
               </h1>
             </div>
 
-            <div className="flex gap-3">
+            {/* Action Buttons */}
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={handleReset}
-                className="px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
               >
                 Sıfırla
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="flex-1 sm:flex-none px-4 sm:px-6 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {saving ? 'Kaydediliyor...' : '💾 Kaydet'}
               </button>
             </div>
           </div>
 
+          {/* Message */}
           {message && (
-            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 rounded-lg">
+            <div className="mt-3 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 rounded-lg text-sm">
               {message}
             </div>
           )}
         </div>
       </header>
 
-      {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Tabs - Mobile Responsive with Horizontal Scroll */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <nav className="flex -mb-px">
+          <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+            <nav className="flex -mb-px min-w-max">
               {[
-                { id: 'general', label: '🏠 Genel', icon: '🏠' },
-                { id: 'analytics', label: '📊 Analytics', icon: '📊' },
-                { id: 'pwa', label: '📱 PWA & Bildirimler', icon: '📱' },
-                { id: 'social', label: '🌐 Sosyal Medya', icon: '🌐' },
-                { id: 'advanced', label: '⚡ Gelişmiş', icon: '⚡' },
+                { id: 'general', label: '🏠 Genel', shortLabel: 'Genel' },
+                { id: 'analytics', label: '📊 Analytics', shortLabel: 'Analytics' },
+                { id: 'pwa', label: '📱 PWA', shortLabel: 'PWA' },
+                { id: 'social', label: '🌐 Sosyal', shortLabel: 'Sosyal' },
+                { id: 'advanced', label: '⚡ Gelişmiş', shortLabel: 'Gelişmiş' },
               ].map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                  className={`px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                     activeTab === tab.id
                       ? 'border-blue-600 text-blue-600 dark:text-blue-400'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
                 >
-                  {tab.label}
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.shortLabel}</span>
                 </button>
               ))}
             </nav>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* General Tab */}
             {activeTab === 'general' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Genel Ayarlar
                 </h2>
 
@@ -219,7 +223,7 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.siteName || ''}
                     onChange={e => updateSetting('siteName', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="AI Acquisition Method"
                   />
                 </div>
@@ -232,7 +236,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settings.siteUrl || ''}
                     onChange={e => updateSetting('siteUrl', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://yourdomain.com"
                   />
                 </div>
@@ -245,7 +249,7 @@ export default function SettingsPage() {
                     value={settings.siteDescription || ''}
                     onChange={e => updateSetting('siteDescription', e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
                     placeholder="Yapay zeka ile işletmenizi büyütün"
                   />
                 </div>
@@ -258,20 +262,20 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.siteKeywords || ''}
                     onChange={e => updateSetting('siteKeywords', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="ai, yapay zeka, danışmanlık"
                   />
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <label className="flex items-center gap-2">
+                <div className="flex items-center gap-3 pt-2">
+                  <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={settings.enableMultiLanguage || false}
                       onChange={e => updateSetting('enableMultiLanguage', e.target.checked)}
-                      className="w-4 h-4 text-blue-600 rounded"
+                      className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                       Çoklu Dil Desteği Aktif
                     </span>
                   </label>
@@ -281,21 +285,23 @@ export default function SettingsPage() {
 
             {/* Analytics Tab */}
             {activeTab === 'analytics' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Analytics Ayarları
                 </h2>
 
-                <div className="flex items-center gap-2 mb-6">
-                  <input
-                    type="checkbox"
-                    checked={settings.enableAnalytics || false}
-                    onChange={e => updateSetting('enableAnalytics', e.target.checked)}
-                    className="w-4 h-4 text-blue-600 rounded"
-                  />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Analytics Sistemini Aktif Et
-                  </span>
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                  <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={settings.enableAnalytics || false}
+                      onChange={e => updateSetting('enableAnalytics', e.target.checked)}
+                      className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    />
+                    <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                      Analytics Sistemini Aktif Et
+                    </span>
+                  </label>
                 </div>
 
                 <div>
@@ -306,10 +312,10 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.googleAnalyticsId || ''}
                     onChange={e => updateSetting('googleAnalyticsId', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="G-XXXXXXXXXX"
                   />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                     Google Analytics 4 Measurement ID'nizi girin
                   </p>
                 </div>
@@ -322,10 +328,10 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.facebookPixelId || ''}
                     onChange={e => updateSetting('facebookPixelId', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="XXXXXXXXXXXXXXXXX"
                   />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                     Facebook Pixel ID'nizi girin
                   </p>
                 </div>
@@ -338,7 +344,7 @@ export default function SettingsPage() {
                     type="password"
                     value={settings.goHighLevelApiKey || ''}
                     onChange={e => updateSetting('goHighLevelApiKey', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="API Key"
                   />
                 </div>
@@ -347,21 +353,23 @@ export default function SettingsPage() {
 
             {/* PWA Tab */}
             {activeTab === 'pwa' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   PWA & Push Notifications
                 </h2>
 
-                <div className="flex items-center gap-2 mb-6">
-                  <input
-                    type="checkbox"
-                    checked={settings.enablePushNotifications || false}
-                    onChange={e => updateSetting('enablePushNotifications', e.target.checked)}
-                    className="w-4 h-4 text-blue-600 rounded"
-                  />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Push Notifications Aktif
-                  </span>
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                  <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={settings.enablePushNotifications || false}
+                      onChange={e => updateSetting('enablePushNotifications', e.target.checked)}
+                      className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                    />
+                    <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                      Push Notifications Aktif
+                    </span>
+                  </label>
                 </div>
 
                 <div>
@@ -372,10 +380,10 @@ export default function SettingsPage() {
                     type="text"
                     value={settings.vapidPublicKey || ''}
                     onChange={e => updateSetting('vapidPublicKey', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="VAPID Public Key"
                   />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                     Push notification için VAPID public key
                   </p>
                 </div>
@@ -388,22 +396,22 @@ export default function SettingsPage() {
                     type="password"
                     value={settings.vapidPrivateKey || ''}
                     onChange={e => updateSetting('vapidPrivateKey', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="VAPID Private Key"
                   />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                     ⚠️ Bu key gizli tutulmalıdır
                   </p>
                 </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                  <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 sm:p-4 rounded-lg">
+                  <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-2 text-sm sm:text-base">
                     💡 VAPID Key Nasıl Oluşturulur?
                   </h3>
-                  <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
+                  <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-200 mb-2">
                     Terminal'de şu komutu çalıştırın:
                   </p>
-                  <code className="block bg-gray-900 text-green-400 p-2 rounded text-xs">
+                  <code className="block bg-gray-900 text-green-400 p-2 rounded text-xs overflow-x-auto">
                     npx web-push generate-vapid-keys
                   </code>
                 </div>
@@ -412,8 +420,8 @@ export default function SettingsPage() {
 
             {/* Social Media Tab */}
             {activeTab === 'social' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Sosyal Medya Bağlantıları
                 </h2>
 
@@ -425,7 +433,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settings.facebookUrl || ''}
                     onChange={e => updateSetting('facebookUrl', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://facebook.com/your-page"
                   />
                 </div>
@@ -438,7 +446,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settings.twitterUrl || ''}
                     onChange={e => updateSetting('twitterUrl', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://twitter.com/your-handle"
                   />
                 </div>
@@ -451,7 +459,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settings.linkedinUrl || ''}
                     onChange={e => updateSetting('linkedinUrl', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://linkedin.com/company/your-company"
                   />
                 </div>
@@ -464,7 +472,7 @@ export default function SettingsPage() {
                     type="url"
                     value={settings.instagramUrl || ''}
                     onChange={e => updateSetting('instagramUrl', e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="https://instagram.com/your-account"
                   />
                 </div>
@@ -473,14 +481,14 @@ export default function SettingsPage() {
 
             {/* Advanced Tab */}
             {activeTab === 'advanced' && (
-              <div className="space-y-6">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Gelişmiş Ayarlar
                 </h2>
 
                 {/* Stripe Payment Section */}
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 sm:pt-6 space-y-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     💳 Stripe Payment Settings
                   </h3>
 
@@ -492,7 +500,7 @@ export default function SettingsPage() {
                       type="password"
                       value={settings.stripeSecretKey || ''}
                       onChange={e => updateSetting('stripeSecretKey', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="sk_live_..."
                     />
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -500,7 +508,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
 
-                  <div className="mt-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Stripe Publishable Key
                     </label>
@@ -508,12 +516,12 @@ export default function SettingsPage() {
                       type="text"
                       value={settings.stripePublishableKey || ''}
                       onChange={e => updateSetting('stripePublishableKey', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="pk_live_..."
                     />
                   </div>
 
-                  <div className="mt-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Stripe Price ID (Subscription)
                     </label>
@@ -521,7 +529,7 @@ export default function SettingsPage() {
                       type="text"
                       value={settings.stripePriceId || ''}
                       onChange={e => updateSetting('stripePriceId', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="price_..."
                     />
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -529,7 +537,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
 
-                  <div className="mt-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Stripe Webhook Secret (Opsiyonel)
                     </label>
@@ -537,7 +545,7 @@ export default function SettingsPage() {
                       type="password"
                       value={settings.stripeWebhookSecret || ''}
                       onChange={e => updateSetting('stripeWebhookSecret', e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="whsec_..."
                     />
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -547,24 +555,26 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Performance Section */}
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 sm:pt-6 space-y-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                     ⚡ Performance Settings
                   </h3>
 
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={settings.enableImageOptimization || false}
-                      onChange={e => updateSetting('enableImageOptimization', e.target.checked)}
-                      className="w-4 h-4 text-blue-600 rounded"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Görsel Optimizasyonu Aktif (AVIF, WebP)
-                    </span>
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={settings.enableImageOptimization || false}
+                        onChange={e => updateSetting('enableImageOptimization', e.target.checked)}
+                        className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                      />
+                      <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                        Görsel Optimizasyonu Aktif (AVIF, WebP)
+                      </span>
+                    </label>
                   </div>
 
-                  <div className="mt-4">
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Görsel Cache Süresi (saniye)
                     </label>
@@ -572,19 +582,19 @@ export default function SettingsPage() {
                       type="number"
                       value={settings.imageCacheTime || 31536000}
                       onChange={e => updateSetting('imageCacheTime', parseInt(e.target.value))}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                       Varsayılan: 31536000 (1 yıl)
                     </p>
                   </div>
                 </div>
 
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
-                  <h3 className="font-medium text-yellow-900 dark:text-yellow-100 mb-2">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 sm:p-4 rounded-lg">
+                  <h3 className="font-medium text-yellow-900 dark:text-yellow-100 mb-2 text-sm sm:text-base">
                     ⚠️ Dikkat
                   </h3>
-                  <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                  <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-200">
                     Bu ayarlar performansı etkiler. Değiştirmeden önce etkilerini anladığınızdan emin olun.
                   </p>
                 </div>
